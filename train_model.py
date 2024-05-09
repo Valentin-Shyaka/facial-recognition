@@ -6,6 +6,8 @@ from PIL import Image
 # Load the Haar Cascade Classifier for face detection
 detector = cv2.CascadeClassifier("models/haarcascade_frontalface_default.xml")
 
+print(cv2.__version__)
+
 def getImagesAndLabels(path):
     imagePaths = [os.path.join(path, f) for f in os.listdir(path) if not f.startswith('.')]
     faceSamples = []
@@ -14,7 +16,7 @@ def getImagesAndLabels(path):
         try:
             pilImage = Image.open(imagePath).convert('L')
             imageNp = np.array(pilImage, 'uint8')
-            Id = int(os.path.split(imagePath)[-1].split(".")[1])
+            Id = int(os.path.split(imagePath)[-1].split(".")[2])
             faces = detector.detectMultiScale(imageNp)
             for (x, y, w, h) in faces:
                 faceSamples.append(imageNp[y:y + h, x:x + w])

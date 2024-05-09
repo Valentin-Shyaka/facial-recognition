@@ -5,7 +5,7 @@ import tensorflow.keras.applications as kapp
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import normalize
 from tensorflow.keras.preprocessing import image
-from tqdm import tqdm
+import tqdm
 import shutil
 
 # Function to extract features using VGG16
@@ -29,7 +29,7 @@ image_files = [os.path.join(images_folder, img) for img in os.listdir(images_fol
 
 # Extract features for all images
 all_features = []
-for img_file in tqdm(image_files, desc="Extracting Features"):
+for img_file in tqdm.tqdm(image_files, desc="Extracting Features"):
     features = extract_features(img_file, vgg16_model)
     all_features.append(features)
 
