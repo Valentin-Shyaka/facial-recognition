@@ -1,12 +1,42 @@
 import cv2
 import time
+import psycopg2
 
 # Detect object in video stream using Haarcascade Frontal Face
 face_cascade = cv2.CascadeClassifier('models/haarcascade_frontalface_default.xml')
 time.sleep(1)
 
-# For each person, one face id
-ID = input('Enter your ID: ')
+#function to insert into DB
+def insert_face_name(name):
+    # Connect to PostgreSQL database
+    conn = psycopg2.connect(
+        dbname="facial",
+        user="postgres",
+        password="vava635",
+        host="localhost",
+        port="5432"
+    )
+
+    # Create a cursor object
+    cur = conn.cursor()
+
+    # Query the database to insert the name into the people table
+    try:
+        cur.execute("INSERT INTO people(fullname) VALUES (%s)", (name,))
+        conn.commit()  # Commit the transaction
+        print('Name successfully added to Database')
+        return True
+    except psycopg2.Error as e:
+        conn.rollback()  # Rollback the transaction in case of error
+        print('Error:', e)
+        return False
+    finally:
+        cur.close()  # Close cursor
+        conn.close()  # Close connection
+
+# Prompt user to enter name
+ID = input('Enter your name: ')
+insert_face_name(ID)
 
 # Wait for 2 seconds to be able to switch to the Webcam Window.
 print("Please get your face ready!")

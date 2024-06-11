@@ -12,6 +12,7 @@ fontScale = 0.6
 fontColor = (255, 255, 255)
 fontWeight = 2
 fontBottomMargin = 30
+Person=""
 
 nametagColor = (255, 0, 0)
 nametagHeight = 50
@@ -41,20 +42,11 @@ while True:
         # Recognize the face
         ID, Confidence = faceRecognizer.predict(gray[y:y + h, x:x + w])
 
-        if ID == 0:
-            Person = "pseudo"
+        
         if ID == 1:
-            Person = "Gabriel"
-        elif ID == 2:
-            Person = "Dalyoung"
-        elif ID == 3:
-            Person = "Godwill"
-        elif ID == 4:
-            Person = "Bright"
-        elif ID == 5:
-            Person = "Bena"  
+            Person = "zesta"  
         elif ID == 6:
-            Person = "Sugira"                       
+            Person = "bigwi"                       
         # Confidence normalization to a 0-100 scale
         Confidence = 100 - Confidence
 
